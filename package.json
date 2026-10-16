@@ -1,0 +1,24 @@
+{
+  "name": "micro-services",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "main": "index.js",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:auth": "npm run dev -w auth",
+    "db:migrate": "tsx scripts/db-migration.ts "
+  },
+  "devDependencies": {
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "dotenv": "^18.0.5",
+    "jsonwebtoken": "^9.0.3"
+  }
+}
