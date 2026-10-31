@@ -1,5 +1,5 @@
 import { AppError } from "shared";
-import { createUser, findByEmail } from "../repositories/user.repo";
+import { createUser, findByEmail, findById } from "../repositories/user.repo";
 import { LoginInput, RegisterInput } from "../schemas/auth.schemas";
 import bcrypt from "bcryptjs";
 import { convertToPublicUser } from "../utils/auth.utils";
