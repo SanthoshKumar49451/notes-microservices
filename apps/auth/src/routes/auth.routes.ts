@@ -12,6 +12,7 @@ export const authRouter=Router();
 
 authRouter.post('/register',validateBody(registerSchema),authController.register);
 authRouter.post('/login',validateBody(loginSchema),authController.login);
+authRouter.get('/me',authController.getMe)
 
 
 

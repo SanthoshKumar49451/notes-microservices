@@ -37,5 +37,7 @@ export async function findByEmail(email:string):Promise<User | null>{
 
 
 export async function findById(id:string):Promise<User|null>{
-    const result =await openPool
+    const result =await openPool().query<User>(`Select id, name ,email ,password_hash , role ,created_at 
+        FROM users WHERE id = ${1}`,[id]);
+    return result.rows[0] ?? null;
 }
