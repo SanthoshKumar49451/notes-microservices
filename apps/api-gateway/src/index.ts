@@ -9,6 +9,7 @@ import {httpLogger,sucessResponse,AppError,errorHandler, logger} from 'shared';
 import {createProxyMiddleware} from 'http-proxy-middleware';
 
 
+
 config({
     path : resolve(process.cwd(),".env")
 });
@@ -29,9 +30,18 @@ const rateLimiter=rateLimit({
 	
 });
 const proxy=createProxyMiddleware({
+    
  target:AUTH_SERVICE_URL,
  changeOrigin:true,
- pathRewrite:path=>`/auth${path}`,
+ pathRewrite:path=>`/api/v1/auth${path}`,
+ on: {
+        proxyReq: (proxyReq, req) => {
+            console.log("Forwarding to Auth Service:", proxyReq.path);
+        },
+        error: (err) => {
+            console.log(err);
+        }
+    }
 })
 
 
@@ -43,7 +53,7 @@ app.use(cors());
 //rate limiter
 app.use(rateLimiter);
 //parse json request body
-app.use(express.json());
+
 //logger
 app.use(httpLogger);
 //health
@@ -55,7 +65,8 @@ app.get('/health',(req,res)=>{
 //proxy routes
 //add auth proxy route ->3000/auth
 
-app.use('auth',proxy);
+app.use('/api/v1/auth',proxy);
+app.use(express.json());
 
 app.use((_req,_res,next)=>{
      throw new AppError(404,"Route not found",false)

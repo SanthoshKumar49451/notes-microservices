@@ -20,6 +20,7 @@ export function openPool():Pool{
         pool=new Pool({
             connectionString:connectionString
         })
+        console.log("Pool")
         return pool;
     }
     

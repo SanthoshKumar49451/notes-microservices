@@ -11,9 +11,10 @@
   "scripts": {
     "dev:auth": "npm run dev -w auth",
     "db:migrate": "tsx scripts/db-migration.ts ",
-    "dev:gateway":"npm run dev -w api-gateway"
+    "dev:gateway": "npm run dev -w api-gateway"
   },
   "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.10",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2"
   },
