@@ -1,6 +1,5 @@
 import { config } from "dotenv";
 import type { Express } from "express";
-import express from 'express'
 import { resolve } from 'node:path'
 import { AppError, errorHandler, httpLogger, logger, sucessResponse } from 'shared'
 import { authRouter } from "./routes/auth.routes";
@@ -48,7 +47,7 @@ app.use(errorHandler);
 
 
 app.listen(PORT, () => {
-    logger.info(`Auth service is running at http://localhost:${PORT}`)
+    logger.info(`Auth service is running at http://localhost:${PORT}`);
 })
 
 
