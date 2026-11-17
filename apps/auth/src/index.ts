@@ -3,8 +3,8 @@ import type { Express } from "express";
 import { resolve } from 'node:path'
 import { AppError, errorHandler, httpLogger, logger, sucessResponse } from 'shared'
 import { authRouter } from "./routes/auth.routes";
-
-
+import {requireGatewaySecret} from '../../../packages/shared/src/auth/gatewayAuth'
+import express from 'express'
 
 
 
@@ -23,7 +23,7 @@ console.log("AUTH_PORT", PORT);
 const app: Express = express();
 
 
-app.use(httpLogger);
+// app.use(httpLogger);
 app.use(express.json());
 
 
@@ -32,7 +32,7 @@ app.get('/health', (req, res) => {
 
 });
 
-app.use('/api/v1/auth', authRouter)
+app.use('/api/v1/auth',requireGatewaySecret, authRouter)
 
 
 app.use((_req, res, next) => {

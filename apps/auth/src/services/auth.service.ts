@@ -3,7 +3,7 @@ import { createUser, findByEmail, findById } from "../repositories/user.repo";
 import { LoginInput, RegisterInput } from "../schemas/auth.schemas";
 import bcrypt from "bcryptjs";
 import { convertToPublicUser } from "../utils/auth.utils";
-import { signToken } from "../utils/jwt";
+import { signToken } from "shared";
 
  async function registerUser(input:RegisterInput){
 
@@ -59,6 +59,7 @@ async function loginUser(input: LoginInput) {
 async function getMe(userId:string){
 
     const user=await findById(userId);
+    console.log("user",user)
     if (!user) {
         throw new AppError(404,"User not found",false)
     }

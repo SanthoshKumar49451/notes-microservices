@@ -37,7 +37,6 @@ async function login(req: Request, res: Response, next: NextFunction) {
 async function getMe(req:Request,res:Response,next:NextFunction){
    try {
      const userId=req.header("x-user-id");
-     console.log("hello")
      if (!userId) {
         throw new AppError(401,"Missing x-user-id header",false);  
      }

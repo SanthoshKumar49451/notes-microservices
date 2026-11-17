@@ -7,6 +7,7 @@ import cors from 'cors';
 import rateLimit from 'express-rate-limit'
 import {httpLogger,sucessResponse,AppError,errorHandler, logger} from 'shared';
 import {createProxyMiddleware} from 'http-proxy-middleware';
+import { gatewayAuth } from './middleware/gateWayAuth';
 
 
 
@@ -21,6 +22,7 @@ config({
 
 const PORT=process.env.PORT || 3000;
 const  AUTH_SERVICE_URL=process.env.AUTH_SERVICE_URL || "http://localhost:3001";
+const TASK_SERVICE_URL=process.env.TASK_SERVICE_URL || "http://localhost:3002"
 
 const rateLimiter=rateLimit({
     windowMs: 15 * 60 * 1000,// 15 minutes
@@ -55,7 +57,7 @@ app.use(rateLimiter);
 //parse json request body
 
 //logger
-app.use(httpLogger);
+// app.use(httpLogger);
 //health
 app.get('/health',(req,res)=>{
     sucessResponse(res,{service:"API gateway up and running"},200,true)
@@ -65,7 +67,7 @@ app.get('/health',(req,res)=>{
 //proxy routes
 //add auth proxy route ->3000/auth
 
-app.use('/api/v1/auth',proxy);
+app.use('/api/v1/auth',gatewayAuth,proxy);
 app.use(express.json());
 
 app.use((_req,_res,next)=>{
